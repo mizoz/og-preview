@@ -1,6 +1,6 @@
 # OG Preview
 
-**Live: https://mizoz.github.io/og-preview/**
+**Live: https://lab.zalastack.com/og-preview/**
 
 Check how a link looks when it's shared, and generate the meta tags to fix it.
 

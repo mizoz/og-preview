@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mizoz.github.io/og-preview/sitemap.xml
+Sitemap: https://lab.zalastack.com/og-preview/sitemap.xml

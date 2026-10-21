@@ -590,7 +590,7 @@
   }
 
   // ---------- examples ----------
-  var EX_IMG = 'https://mizoz.github.io/og-preview/og.png';
+  var EX_IMG = 'https://lab.zalastack.com/og-preview/og.png';
   var EXAMPLE = [
     '<!doctype html>',
     '<html lang="en">',

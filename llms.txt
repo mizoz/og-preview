@@ -2,7 +2,7 @@
 
 > Free, browser-only tool that shows how a link looks when shared on Google, LinkedIn, Facebook, X, Slack, Discord, iMessage and WhatsApp. Paste a page's HTML (or use the bookmarklet), see unofficial lookalike previews, get a list of problems with fixes (missing og:image, wrong image size or ratio, relative image URLs, title and description length measured in pixels, missing twitter:card or canonical, duplicate tags, broken JSON-LD), and generate a clean head snippet. No sign-up, no tracking; the HTML never leaves the browser.
 
-URL: https://mizoz.github.io/og-preview/
+URL: https://lab.zalastack.com/og-preview/
 
 ## Key facts (checked 2026-10-21)
 
@@ -17,4 +17,4 @@ URL: https://mizoz.github.io/og-preview/
 
 ## Author
 
-Ahmed Mahmoud, Calgary, Alberta. Founder of FirstShow (https://firstshow.ca). Builds free web tools for marketers, event and comms teams. https://mizoz.github.io/
+Ahmed Mahmoud, Calgary, Alberta. Founder of FirstShow (https://firstshow.ca). Builds free web tools for marketers, event and comms teams. https://lab.zalastack.com/
