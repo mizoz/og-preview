@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open Graph Preview, Link Preview Checker &amp; Meta Tags</title>
+<meta name="description" content="Free open graph preview and link preview checker. See your link on Google, LinkedIn, Facebook, X, Slack and more, check og image size, generate meta tags.">
+<link rel="canonical" href="https://mizoz.github.io/og-preview/">
+<meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14161a" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="mizoz tools">
+<meta property="og:title" content="OG Preview: link preview checker and meta tag generator">
+<meta property="og:description" content="See how a link looks on Google, LinkedIn, Facebook, X, Slack, Discord, iMessage and WhatsApp, fix the problems, and copy the tags.">
+<meta property="og:url" content="https://mizoz.github.io/og-preview/">
+<meta property="og:image" content="https://mizoz.github.io/og-preview/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="OG Preview: preview how a link looks when shared, and generate the meta tags">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "OG Preview",
+      "url": "https://mizoz.github.io/og-preview/",
+      "description": "Preview how a link looks when shared on Google, LinkedIn, Facebook, X, Slack, Discord, iMessage and WhatsApp, check the Open Graph tags, and generate the meta tags.",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "CAD"},
+      "datePublished": "2026-10-21",
+      "author": {"@type":"Person","name":"Ahmed Mahmoud","url":"https://mizoz.github.io/","jobTitle":"Founder, FirstShow","address":{"@type":"PostalAddress","addressLocality":"Calgary","addressRegion":"AB","addressCountry":"CA"},"sameAs":["https://github.com/mizoz","https://www.linkedin.com/in/ahmed-m-82ba28169/","https://firstshow.ca"]}
+    },
+    {
+      "@type": "HowTo",
+      "name": "How to check a link preview and fix your Open Graph tags",
+      "step": [
+        {"@type": "HowToStep", "name": "Get the tags", "text": "Paste the page's HTML (View Source, or just the head), try fetching the URL, or use the bookmarklet on the page itself."},
+        {"@type": "HowToStep", "name": "Look at the previews", "text": "See the link as a Google result and as a card on LinkedIn, Facebook, X, Slack, Discord, iMessage and WhatsApp."},
+        {"@type": "HowToStep", "name": "Fix what the checks flag", "text": "Each problem comes with a fix: missing og:image, wrong image size, relative URLs, long titles, missing twitter:card or canonical, duplicate tags."},
+        {"@type": "HowToStep", "name": "Copy the tags and refresh caches", "text": "Open the result in the generator, copy the head snippet into your site, then re-scrape the URL in LinkedIn Post Inspector and the Facebook Sharing Debugger."}
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"What size should an og:image be in 2026?","acceptedAnswer":{"@type":"Answer","text":"1200 x 630 pixels (1.91:1), as a PNG or JPG under 5 MB. That works everywhere: it meets LinkedIn's 1200 x 627 minimum, Facebook's 1200 x 630 recommendation, and X crops it only slightly for its large card. Keep text and logos away from the edges."}},
+        {"@type":"Question","name":"Why does my link show the old image or title after I changed it?","acceptedAnswer":{"@type":"Answer","text":"Every platform caches the preview the first time someone shares the link. Re-scrape the URL in LinkedIn Post Inspector and the Facebook Sharing Debugger. For Slack, X, Discord and WhatsApp there is no public refresh button, so wait for the cache to expire or share the URL with a harmless query string like ?v=2."}},
+        {"@type":"Question","name":"Why can't this tool fetch my page directly?","acceptedAnswer":{"@type":"Answer","text":"Browsers block a web page from reading another site's HTML unless that site allows it (CORS). Platform crawlers run on servers, so they don't have this limit. Paste the HTML instead, or use the bookmarklet, which reads the tags from the page you are on and opens them here."}},
+        {"@type":"Question","name":"Do I need both Open Graph and Twitter card tags?","acceptedAnswer":{"@type":"Answer","text":"You need Open Graph tags plus one twitter:card tag. X falls back to og:title, og:description and og:image, so twitter:title and twitter:image are optional. Without twitter:card, X may not show a card at all."}},
+        {"@type":"Question","name":"Can og:image be a relative URL?","acceptedAnswer":{"@type":"Answer","text":"No. Use a full absolute URL starting with https://. Crawlers often don't resolve relative paths, so /images/share.png can end up as no image at all."}},
+        {"@type":"Question","name":"How long should the title and description be?","acceptedAnswer":{"@type":"Answer","text":"Google cuts titles at about 600 pixels wide, roughly 50 to 60 characters, and descriptions after about two lines, roughly 150 to 160 characters. Social cards show even less, often one or two lines, so put the important words first."}},
+        {"@type":"Question","name":"Are these previews exact?","acceptedAnswer":{"@type":"Answer","text":"No. They are close lookalikes, not official renderings, and the platforms change their layouts often. Use them to catch problems fast, then confirm with each platform's own debugger before a big launch."}},
+        {"@type":"Question","name":"Does this tool send my HTML anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. Parsing and previews happen in your browser. The only network requests are the ones you ask for: fetching the URL you type, and loading the og:image so its size can be measured."}}
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#tool">Skip to the tool</a>
+<header class="top">
+  <div class="wrap">
+    <h1>Open Graph preview &amp; link preview checker</h1>
+    <p class="lede">See how a link looks when it's shared on Google, LinkedIn, Facebook, X, Slack, Discord, iMessage and WhatsApp. Check the tags, fix what's broken, and generate a clean <code>&lt;head&gt;</code> snippet. Everything runs in your browser.</p>
+  </div>
+</header>
+
+<main class="wrap" id="tool">
+  <div class="tabs" role="tablist" aria-label="Mode">
+    <button type="button" role="tab" id="tabCheck" aria-controls="panelCheck" aria-selected="true">Check a page</button>
+    <button type="button" role="tab" id="tabGen" aria-controls="panelGen" aria-selected="false" tabindex="-1">Generate tags</button>
+  </div>
+
+  <section class="card panel" id="panelCheck" role="tabpanel" aria-labelledby="tabCheck">
+    <div class="field">
+      <label for="url">Page URL</label>
+      <div class="row">
+        <input id="url" type="url" inputmode="url" autocomplete="url" placeholder="https://example.com/blog/post">
+        <button type="button" class="btn" id="btnFetch">Try to fetch</button>
+      </div>
+      <p class="hint">Also used to resolve relative links in pasted HTML.</p>
+      <div id="fetchMsg" class="msg" role="status" aria-live="polite" hidden></div>
+    </div>
+    <div class="field">
+      <label for="html">Paste the page HTML (or just the <code>&lt;head&gt;</code>)</label>
+      <textarea id="html" rows="8" spellcheck="false" placeholder="In your browser: right-click the page, View Page Source, select all, copy, paste here."></textarea>
+    </div>
+    <div class="row wrapr">
+      <button type="button" class="btn primary" id="btnCheck">Check tags</button>
+      <button type="button" class="btn ghost" id="btnExample">Load example</button>
+      <button type="button" class="btn ghost" id="btnClear">Clear</button>
+      <button type="button" class="btn ghost" id="btnToGen" hidden>Fix in generator</button>
+    </div>
+    <details class="bm">
+      <summary>Bookmarklet: check any page you're on, even behind a login</summary>
+      <p>Drag this button to your bookmarks bar: <a class="btn small" id="bookmarklet" href="#">Check OG tags</a></p>
+      <p class="hint">Open any page, click the bookmark, and this tool opens in a new tab with that page's title, meta, link and JSON-LD tags. The tags travel in the URL hash, which browsers never send to a server. It reads the page after its scripts ran, so if your tags are added by JavaScript, also check View Source: most crawlers don't run scripts.</p>
+    </details>
+  </section>
+
+  <section class="card panel" id="panelGen" role="tabpanel" aria-labelledby="tabGen" hidden>
+    <div class="grid2">
+      <div class="field span2">
+        <label for="gUrl">Page URL (canonical)</label>
+        <input id="gUrl" type="url" inputmode="url" placeholder="https://example.com/blog/post">
+      </div>
+      <div class="field span2">
+        <label for="gTitle">Title <span class="count" id="cTitle"></span></label>
+        <input id="gTitle" type="text" placeholder="How we cut our event check-in time in half">
+      </div>
+      <div class="field span2">
+        <label for="gDesc">Description <span class="count" id="cDesc"></span></label>
+        <textarea id="gDesc" rows="3" placeholder="One or two plain sentences that make someone want to click."></textarea>
+      </div>
+      <div class="field">
+        <label for="gSite">Site name</label>
+        <input id="gSite" type="text" placeholder="Example Co.">
+      </div>
+      <div class="field">
+        <label for="gType">og:type</label>
+        <select id="gType">
+          <option value="website">website</option>
+          <option value="article">article</option>
+          <option value="product">product</option>
+          <option value="profile">profile</option>
+          <option value="video.other">video.other</option>
+        </select>
+      </div>
+      <div class="field span2">
+        <label for="gImg">Image URL (absolute, https)</label>
+        <input id="gImg" type="url" inputmode="url" placeholder="https://example.com/share/post-1200x630.png">
+      </div>
+      <div class="field">
+        <label for="gImgW">Image width</label>
+        <input id="gImgW" type="number" min="1" inputmode="numeric" placeholder="1200">
+      </div>
+      <div class="field">
+        <label for="gImgH">Image height</label>
+        <input id="gImgH" type="number" min="1" inputmode="numeric" placeholder="630">
+      </div>
+      <div class="field span2">
+        <label for="gImgAlt">Image alt text</label>
+        <input id="gImgAlt" type="text" placeholder="Describe what's in the image">
+      </div>
+      <div class="field">
+        <label for="gCard">twitter:card</label>
+        <select id="gCard">
+          <option value="summary_large_image">summary_large_image (big image)</option>
+          <option value="summary">summary (small square)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="gHandle">X handle (twitter:site, optional)</label>
+        <input id="gHandle" type="text" placeholder="@yourbrand" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="gColor">Theme colour (Discord embed bar)</label>
+        <div class="row"><input id="gColorPick" type="color" value="#2f6fed" aria-label="Pick theme colour"><input id="gColor" type="text" placeholder="#2f6fed"></div>
+      </div>
+      <div class="field">
+        <label for="gLocale">og:locale</label>
+        <input id="gLocale" type="text" placeholder="en_CA">
+      </div>
+      <div class="field span2">
+        <label for="gLocalImg">Try a local image first (stays on your device, not added to the tags)</label>
+        <input id="gLocalImg" type="file" accept="image/*">
+      </div>
+    </div>
+    <div class="row wrapr">
+      <button type="button" class="btn ghost" id="btnGenExample">Load example</button>
+      <button type="button" class="btn ghost" id="btnGenClear">Clear</button>
+      <button type="button" class="btn ghost" id="btnShare">Copy share link</button>
+    </div>
+    <div class="snippet">
+      <div class="row between">
+        <h2 class="h3" id="snipHead">Your &lt;head&gt; snippet</h2>
+        <button type="button" class="btn small" id="btnCopy">Copy</button>
+      </div>
+      <pre id="snippet" tabindex="0" aria-labelledby="snipHead"></pre>
+    </div>
+  </section>
+
+  <section id="results" aria-live="polite">
+    <div class="empty card" id="emptyState">
+      <p>Paste some HTML, fetch a URL or fill in the generator to see the previews and checks.</p>
+    </div>
+    <div id="out" hidden>
+      <h2>Checks</h2>
+      <div class="sumline" id="summary"></div>
+      <ul class="checks" id="checks"></ul>
+
+      <div class="row between prevhead">
+        <h2>Previews</h2>
+        <fieldset class="seg">
+          <legend>X card</legend>
+          <input type="radio" name="xmode" id="xAuto" value="auto" checked><label for="xAuto">From tags</label>
+          <input type="radio" name="xmode" id="xLarge" value="large"><label for="xLarge">Large</label>
+          <input type="radio" name="xmode" id="xSmall" value="summary"><label for="xSmall">Summary</label>
+        </fieldset>
+      </div>
+      <p class="hint">Unofficial lookalikes for spotting problems. Real layouts change with app version and screen size.</p>
+      <div class="previews" id="previews"></div>
+
+      <details class="found" id="foundWrap">
+        <summary>All tags found (<span id="foundCount">0</span>)</summary>
+        <div class="tablewrap"><table id="found"><thead><tr><th scope="col">Tag</th><th scope="col">Value</th></tr></thead><tbody></tbody></table></div>
+      </details>
+    </div>
+  </section>
+
+  <section class="card debuggers">
+    <h2>Refresh the cache on each platform</h2>
+    <p>Platforms keep the first preview they see. After you fix your tags, ask them to look again:</p>
+    <ul>
+      <li><a href="https://www.linkedin.com/post-inspector/" rel="noopener" target="_blank">LinkedIn Post Inspector</a>: paste the URL and it re-scrapes on the spot.</li>
+      <li><a href="https://developers.facebook.com/tools/debug/" rel="noopener" target="_blank">Facebook Sharing Debugger</a>: click "Scrape Again". This also helps Messenger and, often, WhatsApp.</li>
+      <li><a href="https://search.google.com/test/rich-results" rel="noopener" target="_blank">Google Rich Results Test</a>: checks your JSON-LD structured data.</li>
+      <li>X, Slack, Discord, iMessage and WhatsApp have no public refresh tool. Wait it out, or share the URL with a harmless query string like <code>?v=2</code> so it's fetched fresh.</li>
+    </ul>
+  </section>
+
+  <article class="content">
+    <h2>How to use this link preview checker</h2>
+    <ol>
+      <li><strong>Get the tags.</strong> Paste the page's HTML (View Source, or just the <code>&lt;head&gt;</code>), try fetching the URL, or use the bookmarklet on the page itself.</li>
+      <li><strong>Look at the previews.</strong> Google result, LinkedIn, Facebook, X (large and summary), Slack, Discord, iMessage and WhatsApp.</li>
+      <li><strong>Fix what the checks flag.</strong> Each problem says what to change.</li>
+      <li><strong>Copy and refresh.</strong> Click "Fix in generator", copy the snippet into your site, then re-scrape in LinkedIn Post Inspector and the Facebook Sharing Debugger.</li>
+    </ol>
+
+    <h2>What is Open Graph?</h2>
+    <p>Open Graph is a small set of <code>&lt;meta&gt;</code> tags, started by Facebook in 2010, that tells apps what to show when someone shares your link: the title, a short description, an image and the URL. LinkedIn, Slack, Discord, iMessage, WhatsApp and most other apps read the same tags. X reads them too, but wants one extra tag, <code>twitter:card</code>, to decide which card to draw. Without these tags, apps guess from your page, and the guess is usually a random image or none at all.</p>
+
+    <h2>Required Open Graph tags</h2>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th scope="col">Tag</th><th scope="col">What it does</th><th scope="col">Example</th></tr></thead>
+      <tbody>
+        <tr><td><code>og:title</code></td><td>Headline on the card</td><td>How we cut check-in time in half</td></tr>
+        <tr><td><code>og:description</code></td><td>One or two lines under it</td><td>What we changed at our last three events</td></tr>
+        <tr><td><code>og:image</code></td><td>The picture. Absolute https URL.</td><td>https://example.com/share.png</td></tr>
+        <tr><td><code>og:url</code></td><td>The canonical address of the page</td><td>https://example.com/blog/check-in</td></tr>
+        <tr><td><code>og:type</code></td><td>Kind of page, usually <code>website</code> or <code>article</code></td><td>article</td></tr>
+        <tr><td><code>twitter:card</code></td><td>Which card X shows</td><td>summary_large_image</td></tr>
+        <tr><td><code>&lt;link rel="canonical"&gt;</code></td><td>The one true URL, for search engines</td><td>https://example.com/blog/check-in</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>Nice to have: <code>og:site_name</code>, <code>og:image:width</code> and <code>og:image:height</code> (Facebook can show the image on the very first share), <code>og:image:alt</code>, <code>og:locale</code>, and <code>theme-color</code> (Discord uses it for the embed bar).</p>
+
+    <h2>OG image size 2026: every platform</h2>
+    <p>Short answer: make it <strong>1200 x 630 px</strong>, PNG or JPG, under 5 MB, with the important bits in the middle. That one image works everywhere below.</p>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th scope="col">Platform</th><th scope="col">Recommended</th><th scope="col">Minimum / limits</th><th scope="col">Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Facebook</td><td>1200 x 630 (1.91:1)</td><td>200 x 200 min, 8 MB max</td><td>Under 600 x 315 shows as a small image</td></tr>
+        <tr><td>LinkedIn</td><td>1200 x 627 (1.91:1)</td><td>1200 x 627 stated minimum, 5 MB max</td><td>Under 401 px wide shows as a thumbnail</td></tr>
+        <tr><td>X large card</td><td>1200 x 630 or 1200 x 600</td><td>300 x 157 min, 4096 x 4096 max, under 5 MB</td><td>Shown at about 2:1 (1.91:1 is cropped a little); JPG, PNG, WEBP, GIF</td></tr>
+        <tr><td>X summary card</td><td>Square, e.g. 600 x 600</td><td>144 x 144 min, 4096 x 4096 max, under 5 MB</td><td>Small square thumbnail, cropped to 1:1</td></tr>
+        <tr><td>Slack</td><td>1200 x 630</td><td>No published numbers</td><td>Reads Open Graph and X card tags</td></tr>
+        <tr><td>Discord</td><td>1200 x 630</td><td>No published numbers</td><td>Big image with <code>summary_large_image</code>, else a small thumbnail</td></tr>
+        <tr><td>iMessage</td><td>1200 x 630 or larger</td><td>No published numbers</td><td>Shows the image large, with title and domain below</td></tr>
+        <tr><td>WhatsApp</td><td>1200 x 630</td><td>No published numbers</td><td>Recommended: keep the file small (around 300 KB or less); big files often show no image</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="hint">Checked against Facebook, LinkedIn and X developer docs on October 21, 2026. "No published numbers" means the platform doesn't document a size; the recommendation is what works in practice.</p>
+
+    <h2>Meta tag generator</h2>
+    <p>Switch to <a href="#generate" id="linkGen">Generate tags</a>, fill in the fields and copy the snippet. It writes the title, description, canonical, Open Graph and X tags, and checks them as you type. You can share the filled-in form with a link, so a teammate or developer sees exactly what you mean.</p>
+
+    <h2>FAQ</h2>
+    <div class="faq">
+      <details><summary>What size should an og:image be in 2026?</summary><p>1200 x 630 pixels (1.91:1), as a PNG or JPG under 5 MB. That works everywhere: it meets LinkedIn's 1200 x 627 minimum, Facebook's 1200 x 630 recommendation, and X crops it only slightly for its large card. Keep text and logos away from the edges.</p></details>
+      <details><summary>Why does my link show the old image or title after I changed it?</summary><p>Every platform caches the preview the first time someone shares the link. Re-scrape the URL in LinkedIn Post Inspector and the Facebook Sharing Debugger. For Slack, X, Discord and WhatsApp there is no public refresh button, so wait for the cache to expire or share the URL with a harmless query string like ?v=2.</p></details>
+      <details><summary>Why can't this tool fetch my page directly?</summary><p>Browsers block a web page from reading another site's HTML unless that site allows it (CORS). Platform crawlers run on servers, so they don't have this limit. Paste the HTML instead, or use the bookmarklet, which reads the tags from the page you are on and opens them here.</p></details>
+      <details><summary>Do I need both Open Graph and Twitter card tags?</summary><p>You need Open Graph tags plus one twitter:card tag. X falls back to og:title, og:description and og:image, so twitter:title and twitter:image are optional. Without twitter:card, X may not show a card at all.</p></details>
+      <details><summary>Can og:image be a relative URL?</summary><p>No. Use a full absolute URL starting with https://. Crawlers often don't resolve relative paths, so /images/share.png can end up as no image at all.</p></details>
+      <details><summary>How long should the title and description be?</summary><p>Google cuts titles at about 600 pixels wide, roughly 50 to 60 characters, and descriptions after about two lines, roughly 150 to 160 characters. Social cards show even less, often one or two lines, so put the important words first.</p></details>
+      <details><summary>Are these previews exact?</summary><p>No. They are close lookalikes, not official renderings, and the platforms change their layouts often. Use them to catch problems fast, then confirm with each platform's own debugger before a big launch.</p></details>
+      <details><summary>Does this tool send my HTML anywhere?</summary><p>No. Parsing and previews happen in your browser. The only network requests are the ones you ask for: fetching the URL you type, and loading the og:image so its size can be measured.</p></details>
+    </div>
+    <p class="updated">Last updated October 2026.</p>
+  </article>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>Made by <a href="https://mizoz.github.io/">Ahmed Mahmoud in Calgary</a>. Free, no sign-up, no tracking. Your HTML never leaves your browser.</p>
+    <p>More free tools:</p>
+    <ul class="tools">
+      <li><a href="https://mizoz.github.io/social-image-sizer/">Social image sizer</a></li>
+      <li><a href="https://mizoz.github.io/utm-builder/">UTM builder</a></li>
+      <li><a href="https://mizoz.github.io/post-preview/">Post preview</a></li>
+      <li><a href="https://mizoz.github.io/sponsorship-builder/">Sponsorship builder</a></li>
+      <li><a href="https://mizoz.github.io/stream-calc/">Stream calculator</a></li>
+      <li><a href="https://mizoz.github.io/alt-text-checker/">Alt text checker</a></li>
+      <li><a href="https://mizoz.github.io/run-of-show/">Run of show</a></li>
+      <li><a href="https://mizoz.github.io/email-signature/">Email signature</a></li>
+      <li><a href="https://mizoz.github.io/og-preview/" aria-current="page">OG preview</a></li>
+    </ul>
+    <p><a href="https://github.com/mizoz/og-preview">Source on GitHub</a></p>
+  </div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

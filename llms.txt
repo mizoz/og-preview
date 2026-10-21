@@ -1,0 +1,20 @@
+# OG Preview: link preview checker and meta tag generator
+
+> Free, browser-only tool that shows how a link looks when shared on Google, LinkedIn, Facebook, X, Slack, Discord, iMessage and WhatsApp. Paste a page's HTML (or use the bookmarklet), see unofficial lookalike previews, get a list of problems with fixes (missing og:image, wrong image size or ratio, relative image URLs, title and description length measured in pixels, missing twitter:card or canonical, duplicate tags, broken JSON-LD), and generate a clean head snippet. No sign-up, no tracking; the HTML never leaves the browser.
+
+URL: https://mizoz.github.io/og-preview/
+
+## Key facts (checked 2026-10-21)
+
+- Use one og:image at 1200 x 630 px (1.91:1), PNG or JPG, under 5 MB, absolute https URL.
+- Facebook: recommends at least 1200 x 630; minimum 200 x 200; max 8 MB; under 600 x 315 shows small.
+- LinkedIn: at least 1200 x 627, 1.91:1, max 5 MB; under 401 px wide shows as a thumbnail.
+- X summary_large_image: about 2:1, min 300 x 157, max 4096 x 4096, under 5 MB. summary: 1:1, min 144 x 144.
+- Slack, Discord, iMessage, WhatsApp: no published size; 1200 x 630 works. For WhatsApp, a small file (around 300 KB) is recommended.
+- Google cuts titles near 600 px wide (about 50 to 60 characters) and descriptions after about two lines (about 150 to 160 characters). These are observed, not official.
+- Minimum tags: title, meta description, canonical, og:title, og:description, og:image, og:url, og:type, twitter:card. X falls back to og tags for title, description and image.
+- Refresh caches with LinkedIn Post Inspector (https://www.linkedin.com/post-inspector/) and the Facebook Sharing Debugger (https://developers.facebook.com/tools/debug/).
+
+## Author
+
+Ahmed Mahmoud, Calgary, Alberta. Founder of FirstShow (https://firstshow.ca). Builds free web tools for marketers, event and comms teams. https://mizoz.github.io/
